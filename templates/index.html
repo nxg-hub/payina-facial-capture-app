@@ -31,24 +31,24 @@
 </head>
 <body>
     <h1>Payina Webcam App is up and Running</h1>
-<!--    <img id="video_feed" src="{{ url_for('video_feed') }}" width="640" height="480" />-->
-<!--    <br>-->
-<!--    <button id="capture_button">Capture Image</button>-->
+    <img id="video_feed" src="{{ url_for('video_feed') }}" width="640" height="480" />
+    <br>
+    <button id="capture_button">Capture Image</button>
 
-<!--    <script>-->
-<!--        // Function to capture image when the button is clicked-->
-<!--        $(document).ready(function() {-->
-<!--            $('#capture_button').click(function() {-->
-<!--                // Send a POST request to capture the image-->
-<!--                $.post("/capture", function(data, status) {-->
-<!--                    if (status === 'success') {-->
-<!--                        console.log('Image captured successfully:', data);-->
-<!--                    } else {-->
-<!--                        console.error('Failed to capture image.');-->
-<!--                    }-->
-<!--                });-->
-<!--            });-->
-<!--        });-->
-<!--    </script>-->
+    <script>
+        // Function to capture image when the button is clicked
+        $(document).ready(function() {
+            $('#capture_button').click(function() {
+                // Send a POST request to capture the image
+                $.post("/capture", function(data, status) {
+                    if (status === 'success') {
+                        console.log('Image captured successfully:', data);
+                    } else {
+                        console.error('Failed to capture image.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
