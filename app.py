@@ -14,7 +14,7 @@ cloudinary.config(
 )
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+cors = CORS(app, resources={r"/capture": {"origins": "http://localhost:1234"}})  # Enable CORS for all routes
 
 # Load the pre-trained cascade classifier for detecting faces
 cascPath = "haarcascade_frontalface_default.xml"
