@@ -68,9 +68,9 @@ def capture_and_upload():
 
 
 # Route for serving the HTML page
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
