@@ -13,4 +13,3 @@ six==1.16.0
 urllib3==2.2.0
 Werkzeug==3.0.1
 gunicorn
-opencv-python~=4.9.0.80

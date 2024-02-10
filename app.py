@@ -41,8 +41,8 @@ def gen_frames():
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
-            # Use the PORT environment variable if available, otherwise default to 5000
-            port = int(os.environ.get("PORT", 5000))
+            # Use the PORT environment variable if available, otherwise default to 80
+            port = int(os.environ.get("PORT", 80))
             app.run(host="0.0.0.0", port=port)
 
 # Route for streaming the video feed
