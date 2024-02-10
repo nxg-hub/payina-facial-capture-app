@@ -1,5 +1,7 @@
-from flask import Flask, render_template, Response
+import os
 import cv2
+from flask import Flask, render_template, Response
+
 from cloudinary import uploader
 from flask_cors import CORS
 import cloudinary
@@ -38,6 +40,10 @@ def gen_frames():
             frame_bytes = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+            # Use the PORT environment variable if available, otherwise default to 5000
+            port = int(os.environ.get("PORT", 5000))
+            app.run(host="0.0.0.0", port=port)
 
 # Route for streaming the video feed
 @app.route('/video_feed')
