@@ -1,0 +1,58 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Video Stream</title>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Video Stream</h1>-->
+<!--    <img id="video_feed" src="{{ url_for('video_feed') }}" alt="Video Stream">-->
+<!--    <script>-->
+<!--        // Function to capture image when 's' key is pressed-->
+<!--        $(document).keypress(function(event) {-->
+<!--            if (event.which == 115) { // Check if 's' key is pressed-->
+<!--                $.get("/capture", function(data, status) {-->
+<!--                    alert(data); // Show alert with response from Flask server-->
+<!--                });-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Capture</title>
+</head>
+<body>
+    <h1>Press "s" to Capture</h1>
+    <script>
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 's') {
+                // Send a POST request to start image capture
+                fetch('/capture', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 'capture_signal': 'start_capture' })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Image captured successfully!');
+                    } else {
+                        console.error('Failed to capture image.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

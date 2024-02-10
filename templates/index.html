@@ -1,0 +1,54 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Video Stream</title>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Video Stream</h1>-->
+<!--    <img id="video_feed" src="{{ url_for('video_feed') }}" alt="Video Stream">-->
+<!--    <script>-->
+<!--        // Function to capture image when 's' key is pressed-->
+<!--        $(document).keypress(function(event) {-->
+<!--            if (event.which == 115) { // Check if 's' key is pressed-->
+<!--                $.get("/capture", function(data, status) {-->
+<!--                    alert(data); // Show alert with response from Flask server-->
+<!--                });-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Video Streaming</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Real-Time Video Streaming</h1>
+    <img id="video_feed" src="{{ url_for('video_feed') }}" width="640" height="480" />
+    <br>
+    <button id="capture_button">Capture Image</button>
+
+    <script>
+        // Function to capture image when the button is clicked
+        $(document).ready(function() {
+            $('#capture_button').click(function() {
+                // Send a POST request to capture the image
+                $.post("/capture", function(data, status) {
+                    if (status === 'success') {
+                        console.log('Image captured successfully:', data);
+                    } else {
+                        console.error('Failed to capture image.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
