@@ -23,10 +23,11 @@ faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + cascPath)
 # Global variable to store the frame from the webcam
 frame = None
 
+
 # Function to capture images from the webcam
 def capture_frame():
     global frame
-    video_capture = cv2.VideoCapture(0)
+    video_capture = cv2.VideoCapture(1)
     success, frame = video_capture.read()
     video_capture.release()  # Release the camera after capturing the frame
 
