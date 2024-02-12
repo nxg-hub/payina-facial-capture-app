@@ -25,11 +25,11 @@ frame = None
 
 
 # Function to capture images from the webcam
-def capture_frame():
-    global frame
-    video_capture = cv2.VideoCapture(0)
-    success, frame = video_capture.read()
-    video_capture.release()  # Release the camera after capturing the frame
+# def capture_frame():
+#     global frame
+#     video_capture = cv2.VideoCapture(0)
+#     success, frame = video_capture.read()
+#     video_capture.release()  # Release the camera after capturing the frame
 
 # Generator function to stream video frames
 def gen_frames():
@@ -46,6 +46,7 @@ def gen_frames():
             port = int(os.environ.get("PORT", 80))
             app.run(host="0.0.0.0", port=port)
 
+
 # Route for streaming the video feed
 @app.route('/video_feed')
 def video_feed():
@@ -56,7 +57,11 @@ def video_feed():
 @app.route('/capture', methods=['POST'])
 def capture_and_upload():
     global frame
-    capture_frame()  # Capture a new frame
+    # capture_frame()  # Capture a new frame
+    video_capture = cv2.VideoCapture(0)
+    success, frame = video_capture.read()
+    video_capture.release()  # Release the camera after capturing the frame
+
     if frame is not None:
         # Convert the frame to JPEG format
         ret, buffer = cv2.imencode('.jpg', frame)
