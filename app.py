@@ -27,7 +27,7 @@ frame = None
 # Function to capture images from the webcam
 def capture_frame():
     global frame
-    video_capture = cv2.VideoCapture(1)
+    video_capture = cv2.VideoCapture(0)
     success, frame = video_capture.read()
     video_capture.release()  # Release the camera after capturing the frame
 
