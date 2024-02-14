@@ -27,20 +27,27 @@ def capture_frame():
     video_capture.release()  # Release the camera after capturing the frame
 
 # Generator function to stream video frames
-def gen_frames():
-    global frame
-    while True:
-        if frame is not None:
-            # Encode the frame into JPEG format
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame_bytes = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-
-# Route for streaming the video feed
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    def gen():
+        global cap
+        try:
+            cap = cv2.VideoCapture(0)  # Assuming your webcam is at index 0
+            while True:
+                ret, frame = cap.read()
+                if ret:
+                    frame = cv2.flip(frame, 1)  # Optionally flip horizontally if needed
+                    ret, buffer = cv2.imencode('.jpg', frame)
+                    yield (b'--frame\r\n'
+                           b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+                else:
+                    break
+        finally:
+            cap.release()
+
+    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 
 # Route for capturing and uploading the frame to Cloudinary
 @app.route('/capture', methods=['POST'])
