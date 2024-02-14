@@ -38,7 +38,7 @@ def capture_image():
     """
 
     # Enumerate available cameras
-    available_cameras = [i for i in range(10)]  # Check up to 10 cameras
+    available_cameras = [i for i in range(100)]  # Check up to 10 cameras
     for camera_index in available_cameras:
         video_capture = cv2.VideoCapture(camera_index)
         if video_capture.isOpened():
