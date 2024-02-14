@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import cv2
 import cloudinary
 from cloudinary.uploader import upload
@@ -24,6 +24,7 @@ def capture_image():
     ret, frame = video_capture.read()
     video_capture.release()
     return frame
+
 
 @app.route('/detect_faces', methods=['POST'])
 def detect_faces():
@@ -61,6 +62,11 @@ def detect_faces():
         return jsonify({"faces": face_coordinates, "image_url": image_url}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# Route for serving the HTML page
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
