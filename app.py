@@ -19,11 +19,35 @@ cloudinary.config(
 )
 
 
+# def capture_image():
+#     video_capture = cv2.VideoCapture(0)
+#     ret, frame = video_capture.read()
+#     video_capture.release()
+#     return frame
 def capture_image():
-    video_capture = cv2.VideoCapture(0)
-    ret, frame = video_capture.read()
-    video_capture.release()
-    return frame
+    """Captures an image from the primary camera.
+
+    Searches for available cameras and attempts to capture an image from the first
+    one found. If no camera is found, a RuntimeError is raised.
+
+    Returns:
+        numpy.ndarray: The captured image frame.
+
+    Raises:
+        RuntimeError: If no camera is found.
+    """
+
+    # Enumerate available cameras
+    available_cameras = [i for i in range(10)]  # Check up to 10 cameras
+    for camera_index in available_cameras:
+        video_capture = cv2.VideoCapture(camera_index)
+        if video_capture.isOpened():
+            ret, frame = video_capture.read()
+            video_capture.release()
+            if ret:
+                return frame
+
+    raise RuntimeError("No camera found!")
 
 
 @app.route('/detect_faces', methods=['POST'])
