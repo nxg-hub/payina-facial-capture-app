@@ -31,7 +31,7 @@
 </head>
 <body>
     <h1>Payina Webcam App is up and Running</h1>
-    <img id="detect_faces" src="{{ url_for('detect_faces') }}" width="640" height="480" />
+    <img id="video_feed" src="{{ url_for('video_feed') }}" width="640" height="480" />
     <br>
     <button id="capture_button">Capture Image</button>
 
@@ -40,7 +40,7 @@
         $(document).ready(function() {
             $('#capture_button').click(function() {
                 // Send a POST request to capture the image
-                $.post("/detect_faces", function(data, status) {
+                $.post("/capture", function(data, status) {
                     if (status === 'success') {
                         console.log('Image captured successfully:', data);
                     } else {
